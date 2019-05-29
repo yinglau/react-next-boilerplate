@@ -12,6 +12,8 @@ import injectReducer from '../../utils/injectReducer'
 import { createStructuredSelector } from 'reselect'
 import PropTypes from 'prop-types'
 
+import Layout from 'containers/Layout'
+
 import { defaultAction } from './actions'
 import reducer from './reducer'
 import saga from './saga'
@@ -20,7 +22,9 @@ import { getDefaultState } from './selectors'
 export class SecondPage extends Component {
   render () {
     return (
-      <div>This is SecondPage!</div>
+      <Layout>
+        <div>This is SecondPage!</div>
+      </Layout>
     )
   }
 }

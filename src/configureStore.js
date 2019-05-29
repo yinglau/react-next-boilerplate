@@ -73,7 +73,7 @@ export default function configureStore (initialState = {}, ctx) {
     await store.stopSaga();
     // Re-run on client side
     if (!isServer) {
-      store.runSaga();
+      // store.runSaga();
     }
   };
 

@@ -9,14 +9,3 @@ export function getNews (payload) {
   }
 }
 
-export const GET_ARTS = 'HomePage/GET_ARTS'
-export const GET_ARTS_SUCCESS = 'HomePage/GET_ARTS_SUCCESS'
-export const GET_ARTS_FAIL = 'HomePage/GET_ARTS_FAIL'
-
-export function getArts (payload) {
-  return {
-    type: GET_ARTS,
-    payload
-  }
-}
-
