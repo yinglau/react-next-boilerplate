@@ -5,15 +5,15 @@ import withRedux from "next-redux-wrapper";
 import App from "next/app";
 
 import Router from "next/router";
-import Nprogress from 'nprogress'
+import NProgress from 'nprogress'
 import './styles/nprogress.less'
 
 Router.onRouteChangeStart = url => {
     console.log('router change start')
-    Nprogress.start();
+    NProgress.start();
 }
-Router.onRouteChangeComplete = () => Nprogress.done()
-Router.onRouteChangeError = () => Nprogress.done()
+Router.onRouteChangeComplete = () => NProgress.done()
+Router.onRouteChangeError = () => NProgress.done()
  
 
 class MyApp extends App {
