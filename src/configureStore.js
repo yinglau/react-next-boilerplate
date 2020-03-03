@@ -6,8 +6,6 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { fromJS } from 'immutable'
 import createSagaMiddleware, { END } from 'redux-saga'
 import createReducer from './reducers'
-import { combineReducers } from 'redux-immutable'
-import { mergeDeep } from 'immutable'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -76,8 +74,6 @@ export default function configureStore (initialState = {}, ctx) {
       // store.runSaga();
     }
   };
-
-  console.log('sjtore', store)
 
   // Initial run
   // store.runSaga();
