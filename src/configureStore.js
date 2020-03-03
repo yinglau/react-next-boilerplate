@@ -77,6 +77,8 @@ export default function configureStore (initialState = {}, ctx) {
     }
   };
 
+  console.log('sjtore', store)
+
   // Initial run
   // store.runSaga();
 

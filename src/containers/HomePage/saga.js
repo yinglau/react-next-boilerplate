@@ -1,4 +1,4 @@
-import { takeEvery, call, put } from 'redux-saga/effects'
+import { takeEvery, takeLatest, call, put } from 'redux-saga/effects'
 import * as api from 'services'
 import {
   GET_NEWS,
@@ -19,5 +19,5 @@ function* defaultFlow (action) {
 }
 
 export default function* saga () {
-  yield takeEvery(GET_NEWS, defaultFlow)
+  yield takeLatest(GET_NEWS, defaultFlow)
 }
