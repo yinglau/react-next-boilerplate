@@ -23,10 +23,10 @@ module.exports = {
         type: 'list',
         name: 'componentType',
         message: 'What component type do you want?',
-        default: 'Default',
+        default: 'Function',
         choices: () => [
-          'Default',
-          'Client',
+          'Functional',
+          'Class',
         ]
       },
       {
@@ -42,7 +42,7 @@ module.exports = {
       const componentType = data.componentType;
 
       switch(componentType) {
-        case 'Default':
+        case 'Functional':
           actions.push({
             type: 'add',
             path: `${path.join(__dirname, '../../../src/components/{{properCase name}}/index.js')}`,
@@ -54,35 +54,13 @@ module.exports = {
               }
             },
             abortOnFail: true
-          }, {
-            type: 'add',
-            path: `${path.join(__dirname, '../../../src/components/{{properCase name}}/dynamic.js')}`,
-            templateFile: `./component/dynamic.js.hbs`,
-            data: {
-              author: {
-                name: userinfo['user.name'],
-                email: userinfo['user.email']
-              }
-            },
-            abortOnFail: true
           });
           break;
-        case 'Client':
+        case 'Class':
           actions.push({
             type: 'add',
             path: `${path.join(__dirname, '../../../src/components/{{properCase name}}/index.js')}`,
-            templateFile: `./component/client.js.hbs`,
-            data: {
-              author: {
-                name: userinfo['user.name'],
-                email: userinfo['user.email']
-              }
-            },
-            abortOnFail: true
-          }, {
-            type: 'add',
-            path: `${path.join(__dirname, '../../../src/components/{{properCase name}}/dynamic.js')}`,
-            templateFile: `./component/dynamic.js.hbs`,
+            templateFile: `./component/class.js.hbs`,
             data: {
               author: {
                 name: userinfo['user.name'],

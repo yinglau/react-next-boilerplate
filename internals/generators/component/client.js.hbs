@@ -4,24 +4,37 @@
  * email: {{ author.email }}
  */
 
- // Server render
+// Only Client render
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 //import { useSelector } from 'react-redux'
 //import { toJS } from 'immutable'
 //import { createStructuredSelector } from 'reselect'
 //import { /* your selector */ } from 'path/to/your/selector'
 
+function useMounted() {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  return mounted
+}
+
 export function {{ properCase name }} (props) {
+  const isMount = useMounted()
   // const selector = useSelector(createStructuredSelector({
   //  /* your selector */
   // }))
-  
+
   return (
-    <div>
-      {{ properCase name }} component
-    </div>
+    <>
+      { isMount
+        ? (<div>
+            {{ properCase name }} component
+          </div>)
+        : null
+      }
+    </>
   )
 }
 
 export default {{ properCase name }}
+

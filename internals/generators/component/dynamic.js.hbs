@@ -1,0 +1,19 @@
+/**
+ * {{ properCase name }} dynamic component
+ * author: {{ author.name }}
+ * email: {{ author.email }}
+ */
+
+import dynamic from 'next/dynamic'
+
+const DynamicComponent = dynamic(import('./index'), {
+    loading: <div>loading...</div>
+})
+
+export function {{ properCase name }} (props) {
+  return (
+    <DynamicComponent />
+  )
+}
+
+export default {{ properCase name }}
