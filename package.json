@@ -14,7 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@zeit/next-less": "^1.0.1",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "express": "^4.17.1",
     "fetch": "^1.1.0",
     "immutable": "^4.0.0-rc.12",
