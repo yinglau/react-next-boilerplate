@@ -17,6 +17,7 @@ import { FormattedMessage } from 'react-intl'
 import messages from './messages'
 
 import Layout from 'containers/Layout'
+import Button from '@material-ui/core/Button';
 
 class HomePage extends Component {
   static async getInitialProps ({ isServer, store }) {
@@ -71,6 +72,7 @@ class HomePage extends Component {
       <Layout>
         <div style={{ padding: '10px 0' }}>
           <FormattedMessage {...messages.welcome} />
+          <Button variant="contained" color="secondary">button</Button>
           <div className={styles.tabs}>
             <span className={this.state.tabid === 'ask' ? styles.actived : 'false'} data-tab="ask" onClick={() => this.selectTab('ask')}>ask</span>
             <span className={this.state.tabid === 'share' ? styles.actived : 'false'} data-tab="share" onClick={() => this.selectTab('share')}>share</span>

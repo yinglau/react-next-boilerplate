@@ -35,5 +35,8 @@
     "redux-saga": "^0.16.2",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0"
+  },
+  "devDependencies": {
+    "@material-ui/core": "^4.9.5"
   }
 }

@@ -1,7 +1,5 @@
 import React from 'react'
-
 import Link from 'next/link'
-
 import styles from './style.less'
 
 function Header (props) {
