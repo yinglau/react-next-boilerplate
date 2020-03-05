@@ -2,6 +2,11 @@ import React from "react";
 import configureStore from 'configureStore';
 import {Provider} from "react-redux";
 import withRedux from "next-redux-wrapper";
+
+import { IntlProvider, createIntl } from 'react-intl'
+// import zh from 'translations/zh'
+// import en from 'translations/en'
+
 import App from "next/app";
 
 import Router from "next/router";
@@ -14,7 +19,6 @@ Router.onRouteChangeStart = url => {
 }
 Router.onRouteChangeComplete = () => NProgress.done()
 Router.onRouteChangeError = () => NProgress.done()
- 
 
 class MyApp extends App {
     
@@ -28,7 +32,12 @@ class MyApp extends App {
         
         return (
             <Provider store={store}>
-                <Component {...pageProps} />
+                <IntlProvider
+                    // locale={'zh'}
+                    messages={require('translations/zh')}
+                >
+                    <Component {...pageProps} />
+                </IntlProvider>
             </Provider>
         );
     }

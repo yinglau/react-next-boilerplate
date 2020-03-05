@@ -13,6 +13,9 @@ import reducer from './reducer'
 import { selectHomeNews } from './selectors'
 import styles from './style.less'
 
+import { FormattedMessage } from 'react-intl'
+import messages from './messages'
+
 import Layout from 'containers/Layout'
 
 class HomePage extends Component {
@@ -67,6 +70,7 @@ class HomePage extends Component {
     return (
       <Layout>
         <div style={{ padding: '10px 0' }}>
+          <FormattedMessage {...messages.welcome} />
           <div className={styles.tabs}>
             <span className={this.state.tabid === 'ask' ? styles.actived : 'false'} data-tab="ask" onClick={() => this.selectTab('ask')}>ask</span>
             <span className={this.state.tabid === 'share' ? styles.actived : 'false'} data-tab="share" onClick={() => this.selectTab('share')}>share</span>

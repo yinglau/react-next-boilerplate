@@ -41,6 +41,7 @@ module.exports = {
         'constants',
         'saga',
         'selectors',
+        'messages',
       ];
       // const nameIndexToClass = (val) => val == 'index' ? 'class' : val;
       let actions = generateFiles.map(item => ({
