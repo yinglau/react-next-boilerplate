@@ -6,19 +6,19 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { fromJS } from 'immutable'
 import createSagaMiddleware, { END } from 'redux-saga'
 import createReducer from './reducers'
-
-const sagaMiddleware = createSagaMiddleware()
-
-function createMiddlewares ({ isServer }) {
-  let middlewares = [
-    sagaMiddleware
-  ]
-
-  return middlewares
-}
+import rootSaga from './globalSaga'
 
 export default function configureStore (initialState = {}, ctx) {
-  const { isServer } = ctx
+  const { isServer, req } = ctx
+  const sagaMiddleware = createSagaMiddleware()
+  function createMiddlewares ({ isServer }) {
+    let middlewares = [
+      sagaMiddleware
+    ]
+
+    return middlewares
+  }
+
   // const middlewares = [sagaMiddleware]
   const middlewares = createMiddlewares({ isServer })
   const enhancers = [applyMiddleware(...middlewares)]
@@ -39,50 +39,46 @@ export default function configureStore (initialState = {}, ctx) {
     composeEnhancers(...enhancers)
   )
 
-  // Extensions
-  store.runSaga = sagaMiddleware.run
-  store.injectedReducers = {} // Reducer registry
-  store.injectedSagas = {} // Saga registry
-
-  // store.runSaga = () => {
-  //   // Avoid running twice
-  //   if (store.saga) return;
-  //   store.saga = sagaMiddleware.run(rootSaga);
-  // };
+  store.runSaga = () => {
+    // Avoid running twice
+    if (store.sagaTask) return;
+    store.sagaTask = sagaMiddleware.run(rootSaga);
+  };
 
   store.stopSaga = async () => {
     // Avoid running twice
-    if (!store.saga) return;
+    if (store.sagaTask) return;
     store.dispatch(END);
-    await store.saga.done;
-    store.saga = null;
-  }
+    // await store.saga.done;
 
-  store.execRunSagas = (isServer, saga) => {
-    store.saga = sagaMiddleware.run(saga);
+    // store.saga = null;
   }
 
   store.execSagaTasks = async (isServer, tasks) => {
     // run saga
-    // store.runSaga();
+    store.runSaga();
     // dispatch saga tasks
+
     tasks(store.dispatch);
     // Stop running and wait for the tasks to be done
     await store.stopSaga();
+
     // Re-run on client side
     if (!isServer) {
-      // store.runSaga();
+      store.runSaga();
     }
   };
 
   // Initial run
-  // store.runSaga();
+  if (!req && !isServer) {
+    store.runSaga();
+  }
 
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore next */
   if (module.hot) {
     module.hot.accept('./reducers', () => {
-      store.replaceReducer(createReducer(store.injectedReducers))
+      store.replaceReducer(createReducer())
     })
   }
 

@@ -6,6 +6,7 @@ import {
   GET_NEWS_FAIL,
 } from './actions'
 
+
 function* defaultFlow (action) {
   try {
     console.log('run saga action.type', action.type)
@@ -19,5 +20,5 @@ function* defaultFlow (action) {
 }
 
 export default function* saga () {
-  yield takeLatest(GET_NEWS, defaultFlow)
+  yield takeEvery(GET_NEWS, defaultFlow)
 }

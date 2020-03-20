@@ -1,15 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import injectSaga from 'utils/injectSaga'
-import injectReducer from 'utils/injectReducer'
 import { createStructuredSelector } from 'reselect'
 import PropTypes from 'prop-types'
-import { toJS } from 'immutable'
 
 import { getNews } from './actions'
-import saga from './saga'
-import reducer from './reducer'
 import { selectHomeNews } from './selectors'
 import styles from './style.less'
 
@@ -21,14 +16,13 @@ import Button from '@material-ui/core/Button';
 
 class HomePage extends Component {
   static async getInitialProps ({ isServer, store }) {
-      store.execRunSagas(isServer, saga)
-      await store.execSagaTasks(isServer, dispatch => {
-        dispatch(getNews({
-            tab: 'ask',
-            limit: 6,
-            page: 1
-          }))
-      })
+    store.execSagaTasks(isServer, (dispatch) => {
+      dispatch(getNews({
+        tab: 'ask',
+        limit: 6,
+        page: 1
+      }))
+    })
     // you can do something with payload now
   }
 
@@ -81,10 +75,10 @@ class HomePage extends Component {
           </div>
           
           <div className={styles.test}>
-            {data.data.length > 0 && (
+            {data && data.length > 0 && (
               isRequest 
                 ? (<div>loading....</div>) 
-                : this.renderListBox(data.data)
+                : this.renderListBox(data)
             )}
           </div>
         </div>
@@ -106,8 +100,8 @@ const mapStateToProps = createStructuredSelector({
   homeNews: selectHomeNews()
 })
 
-const withSaga = injectSaga({ key: 'homePage', saga })
-const withReducer = injectReducer({ key: 'homePage', reducer })
+// const withSaga = injectSaga({ key: 'homePage', saga })
+// const withReducer = injectReducer({ key: 'homePage', reducer })
 const withConnect = connect(mapStateToProps, mapDispatchToProps)
 
 // containers propsTypes
@@ -117,4 +111,4 @@ HomePage.propTypes = {
   homeNews: PropTypes.object.isRequired
 }
 
-export default compose(withReducer, withSaga, withConnect)(HomePage)
+export default compose(withConnect)(HomePage)

@@ -21,7 +21,7 @@ function homeReducer (state = initialState, action) {
     case GET_NEWS_SUCCESS:
       return state
         .setIn(['homeNews', 'isRequest'], false)
-        .setIn(['homeNews', 'data'], action.data)
+        .setIn(['homeNews', 'data'], action.data.data)
     case GET_NEWS_FAIL:
       return state
         .setIn(['homeNews', 'isRequest'], false)

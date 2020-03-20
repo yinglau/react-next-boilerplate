@@ -2,6 +2,7 @@ import React from "react";
 import configureStore from 'configureStore';
 import {Provider} from "react-redux";
 import withRedux from "next-redux-wrapper";
+import withReduxSaga from 'next-redux-saga'
 
 import { IntlProvider, createIntl } from 'react-intl'
 // import zh from 'translations/zh'
@@ -14,7 +15,6 @@ import NProgress from 'nprogress'
 import './styles/nprogress.less'
 
 Router.onRouteChangeStart = url => {
-    console.log('router change start')
     NProgress.start();
 }
 Router.onRouteChangeComplete = () => NProgress.done()
@@ -33,7 +33,7 @@ class MyApp extends App {
         return (
             <Provider store={store}>
                 <IntlProvider
-                    // locale={'zh'}
+                    locale={'zh'}
                     messages={require('translations/zh')}
                 >
                     <Component {...pageProps} />
@@ -43,4 +43,4 @@ class MyApp extends App {
     }
 
 }
-export default withRedux(configureStore, {debug: process.env.NODE_ENV !== 'production'})(MyApp);
+export default withRedux(configureStore, {debug: process.env.NODE_ENV !== 'production'})(withReduxSaga(MyApp));
