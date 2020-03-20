@@ -74,6 +74,8 @@ export default function configureStore (initialState = {}, ctx) {
     store.runSaga();
   }
 
+  store.runSaga();
+
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore next */
   if (module.hot) {
